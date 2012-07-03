@@ -21,9 +21,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFCanvas {
 	public PdfContentByte canvas;
-	public int width;
-	public int height;
+	private int width;
+	private int height;
 	public Document document;
+	private int padding; 
+	
 	
 	public PDFCanvas(String fileName, int width, int height) throws FileNotFoundException, DocumentException{
 		this.width = width;
@@ -36,6 +38,8 @@ public class PDFCanvas {
 	    document.open();
 	    canvas = writer.getDirectContent();
 	}
+	
+	
 	
 	public void drawImage(String url){
 		try {
@@ -137,6 +141,22 @@ public class PDFCanvas {
 		canvas.saveState();
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	public void popMatrix(){
 		canvas.restoreState();
 	}
@@ -181,6 +201,54 @@ public class PDFCanvas {
 		
 		
 	}
+	
+	public void setFont(String f){
+		com.itextpdf.text.Font font = FontFactory.getFont(f);
+	}
+	
+	public void drawLine(float x1, float y1, float x2, float y2){
+		y1 = height - y1;
+		y2 = height - y2;
+		canvas.saveState();
+		canvas.moveTo(x1, y1);
+		canvas.lineTo(x2,y2);
+		canvas.stroke();
+		canvas.restoreState();	
+	}
+	
+	/**
+	 * @param x
+	 * @param y
+	 * @param dims
+	 */
+	public void drawCross(float x, float y, float dims){
+		canvas.saveState();
+		canvas.moveTo(x-(dims/2), (height+(dims/2)) - y );
+		canvas.lineTo(x+(dims/2), (height-(dims/2)) - y);
+		canvas.stroke();
+		canvas.restoreState();	
+		canvas.saveState();
+		canvas.moveTo(x-(dims/2), (height-(dims/2)) - y );
+		canvas.lineTo(x+(dims/2), (height+(dims/2)) - y);
+		canvas.stroke();
+		canvas.restoreState();	
+	}
+	
+	public void drawCircle(float x, float y, float  diameter){
+		canvas.saveState();
+		canvas.circle(x, (height-y), diameter);
+		canvas.stroke();
+		canvas.restoreState();	
+	}
+	
+	public void fillCircle(float x, float y, float  diameter){
+		canvas.saveState();
+		canvas.circle(x, (height-y), diameter);
+		canvas.fill();
+		canvas.restoreState();	
+	}
+	
+	
 	
 	public void makeGrid(int gridExtent, int blockSize){
 		for (int y = 0; y < gridExtent; y++){
