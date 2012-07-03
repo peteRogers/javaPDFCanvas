@@ -14,14 +14,9 @@ public class BasicDrawing {
 	float maxHeight = 2000f;
 	private PDFCanvas canvas;
 	
-
-public BasicDrawing(){
+private void setup(){
 	try {
 		initCanvasDims("tester.pdf");
-		canvas.drawCross(100, 100, 50);
-		canvas.setFont(100);
-		canvas.save();
-		
 	} catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -29,7 +24,12 @@ public BasicDrawing(){
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	
+	canvas.drawCross(100, 100, 50);
+	canvas.setFont(100);
+	canvas.save();
+}
+public BasicDrawing(){
+	setup();
 	}
 	
 	public static void main(String[] args) {
