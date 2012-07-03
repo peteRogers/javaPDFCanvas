@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
@@ -184,26 +185,37 @@ public class PDFCanvas {
 		canvas.setGState(gs1);
 	}
 	
-	public void drawText(String t, int fontSize) throws DocumentException, IOException{
+	public void drawText(String t) {
 
 		 canvas.beginText();                            
 	     canvas.moveText(0, 0);                        
-	     canvas.setFontAndSize(BaseFont.createFont(), fontSize); 
+	    
 	     canvas.showText(t);                   
 	     canvas.endText();          
 
 	}
 	
-	public void setFont(){
-		com.itextpdf.text.Font font = FontFactory.getFont("Times-Roman");
-	
-		System.out.println(FontFactory.getRegisteredFamilies());
+	public void drawText(String t, float x, float y ){
+		 canvas.beginText();                            
+	        
+	     canvas.showTextAligned(Element.ALIGN_RIGHT, t, x, height - y,0);
+	    
+	    
+	     canvas.endText();
 		
+	}
+	
+	public void setFont(int size){
+		com.itextpdf.text.Font font = FontFactory.getFont("Times-Roman");
+		System.out.println(FontFactory.getRegisteredFonts());
+		canvas.setFontAndSize(font.getBaseFont(), size); 
 		
 	}
 	
 	public void setFont(String f){
 		com.itextpdf.text.Font font = FontFactory.getFont(f);
+		
+		
 	}
 	
 	public void drawLine(float x1, float y1, float x2, float y2){
