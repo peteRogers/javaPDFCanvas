@@ -21,7 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class PDFCanvas {
-	public PdfContentByte canvas;
+	private PdfContentByte canvas;
 	private int width;
 	private int height;
 	public Document document;
@@ -38,6 +38,27 @@ public class PDFCanvas {
 	                new FileOutputStream(fileName));
 	    document.open();
 	    canvas = writer.getDirectContent();
+	}
+	
+	public void setColorFill(int r, int g, int b){
+		canvas.setRGBColorFill(r, g, b);
+	}
+	
+	public void setColorStroke(int r, int g, int b){
+		canvas.setRGBColorStroke(r, g, b);
+	}
+	
+	
+	public void setLineWeight(float f){
+		canvas.setLineWidth(f);
+	}
+	
+	
+	public void fillRoundedRect(float x, float y, float w, float h, float r){
+		canvas.saveState();
+		canvas.roundRectangle(x, y, w, h, r);
+		canvas.fill();
+		canvas.restoreState();
 	}
 	
 	
@@ -186,29 +207,36 @@ public class PDFCanvas {
 	}
 	
 	public void drawText(String t) {
-
 		 canvas.beginText();                            
 	     canvas.moveText(0, 0);                        
-	    
 	     canvas.showText(t);                   
 	     canvas.endText();          
-
 	}
 	
 	public void drawText(String t, float x, float y ){
 		 canvas.beginText();                            
-	        
 	     canvas.showTextAligned(Element.ALIGN_RIGHT, t, x, height - y,0);
-	    
-	    
 	     canvas.endText();
-		
 	}
 	
 	public void setFont(int size){
-		com.itextpdf.text.Font font = FontFactory.getFont("Times-Roman");
-		System.out.println(FontFactory.getRegisteredFonts());
-		canvas.setFontAndSize(font.getBaseFont(), size); 
+		
+	//	String[] names = BaseFont.enumerateTTCNames(FONT);
+		BaseFont bf;
+		try {
+			bf = BaseFont.createFont("RaspoutineClassic_TB.otf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			
+			canvas.setFontAndSize(bf, size);
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	
 		
 	}
 	
