@@ -25,7 +25,7 @@ private void setup(){
 		e.printStackTrace();
 	}
 	canvas.drawCross(100, 100, 50);
-	canvas.setFont(100);
+	canvas.setFont("myFonts/RaspoutineClassic_TB.otf100", 10);
 	canvas.save();
 }
 public BasicDrawing(){

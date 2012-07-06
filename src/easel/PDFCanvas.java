@@ -49,8 +49,13 @@ public class PDFCanvas {
 	}
 	
 	
-	public void setLineWeight(float f){
-		canvas.setLineWidth(f);
+	/**
+	 * sets weight of stroke for lines. curves and shapes
+	 * @param weight sets stroke weight from float
+	 * 
+ 	 */
+	public void setLineWeight(float weight){
+		canvas.setLineWidth(weight);
 	}
 	
 	
@@ -219,12 +224,16 @@ public class PDFCanvas {
 	     canvas.endText();
 	}
 	
-	public void setFont(int size){
+	/**
+	 * @param fontname needs to be full 
+	 * @param size
+	 */
+	public void setFont( String fontname, int size){
 		
 	//	String[] names = BaseFont.enumerateTTCNames(FONT);
 		BaseFont bf;
 		try {
-			bf = BaseFont.createFont("RaspoutineClassic_TB.otf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+			bf = BaseFont.createFont(fontname, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			
 			canvas.setFontAndSize(bf, size);
 		} catch (DocumentException e) {
