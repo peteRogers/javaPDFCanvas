@@ -25,7 +25,10 @@ private void setup(){
 		e.printStackTrace();
 	}
 	canvas.drawCross(100, 100, 50);
-	canvas.setFont("myFonts/RaspoutineClassic_TB.otf100", 10);
+	canvas.setColorFill(255,255,255);
+	canvas.setTransparency(0.9f);
+	canvas.drawTriangle(100, 100, 200);
+	//canvas.setFont("myFonts/RaspoutineClassic_TB.otf100", 10);
 	canvas.save();
 }
 public BasicDrawing(){

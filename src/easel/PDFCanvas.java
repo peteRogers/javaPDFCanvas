@@ -224,6 +224,12 @@ public class PDFCanvas {
 	     canvas.endText();
 	}
 	
+	public void drawTextRight(String t, float x, float y ){
+		canvas.beginText();                            
+	     canvas.showTextAligned(Element.ALIGN_LEFT, t, x, height - y,0);
+	     canvas.endText();
+	}
+	
 	/**
 	 * @param fontname needs to be full 
 	 * @param size
@@ -282,6 +288,23 @@ public class PDFCanvas {
 		canvas.stroke();
 		canvas.restoreState();	
 	}
+	
+	public void drawTriangle(float x, float y, float dims){
+		
+		canvas.saveState();
+		canvas.moveTo(x-(dims/2), height - y);
+		canvas.lineTo(x, (height+Math.abs(dims))-y);
+		canvas.lineTo(x+(dims/2), height - y);
+		//canvas.lineTo(x-(dims/2), height - y);
+		
+		canvas.stroke();
+		//canvas.stroke();
+		
+		canvas.restoreState();	
+	}
+	
+	
+	
 	
 	public void drawCircle(float x, float y, float  diameter){
 		canvas.saveState();
