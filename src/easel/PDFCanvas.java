@@ -205,9 +205,14 @@ public class PDFCanvas {
 		canvas.transform(af);
 	}
 	
-	public void setTransparency(float t){
+	public void setFillTransparency(float t){
 		PdfGState gs1 = new PdfGState();
 		gs1.setFillOpacity(t);
+		canvas.setGState(gs1);
+	}
+	public void setStrokeTransparency(float t){
+		PdfGState gs1 = new PdfGState();
+		gs1.setStrokeOpacity(t);
 		canvas.setGState(gs1);
 	}
 	
@@ -295,6 +300,22 @@ public class PDFCanvas {
 		canvas.moveTo(x-(dims/2), height - y);
 		canvas.lineTo(x, (height+Math.abs(dims))-y);
 		canvas.lineTo(x+(dims/2), height - y);
+		//canvas.lineTo(x-(dims/2), height - y);
+		
+		canvas.stroke();
+		//canvas.stroke();
+		
+		canvas.restoreState();	
+	}
+	
+public void drawWave(float x, float y, float dims){
+		
+		canvas.saveState();
+		canvas.moveTo(x-(dims), height - y);
+		canvas.lineTo(x-(dims/2), (height+Math.abs(dims/3))-y);
+		canvas.lineTo(x, height - y);
+		canvas.lineTo(x+(dims/2), (height+Math.abs(dims/3))-y);
+		canvas.lineTo(x+(dims), height - y);
 		//canvas.lineTo(x-(dims/2), height - y);
 		
 		canvas.stroke();
