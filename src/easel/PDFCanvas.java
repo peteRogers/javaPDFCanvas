@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Random;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
@@ -66,7 +67,33 @@ public class PDFCanvas {
 		canvas.restoreState();
 	}
 	
-	
+	public void createBezierCurves(PdfContentByte cb, float x0, float y0,
+		        float x1, float y1, float x2, float y2, float x3, float y3, float distance) {
+		        cb.moveTo(x0, y0);
+		        cb.lineTo(x1, y1);
+		        cb.moveTo(x2, y2);
+		        cb.lineTo(x3, y3);
+		        cb.moveTo(x0, y0);
+		        cb.curveTo(x1, y1, x2, y2, x3, y3);
+		        x0 += distance;
+		        x1 += distance;
+		        x2 += distance;
+		        x3 += distance;
+		        cb.moveTo(x2, y2);
+		        cb.lineTo(x3, y3);
+		        cb.moveTo(x0, y0);
+		        cb.curveTo(x2, y2, x3, y3);
+		        x0 += distance;
+		        x1 += distance;
+		        x2 += distance;
+		        x3 += distance;
+		        cb.moveTo(x0, y0);
+		        cb.lineTo(x1, y1);
+		        cb.moveTo(x0, y0);
+		        cb.curveTo(x1, y1, x3, y3);
+		        cb.stroke();
+		 
+		    }
 	
 	public void drawImage(String url){
 		try {
@@ -294,6 +321,32 @@ public class PDFCanvas {
 		canvas.restoreState();	
 	}
 	
+	public void drawHill(float x, float y, float w, float h){
+		canvas.saveState();
+		canvas.moveTo(x-(w/2), height - y);
+		canvas.curveTo(x-(w/2), height - y, x,height - (y-h), x+(w/2), height - y);
+		canvas.stroke();
+		canvas.restoreState();	
+	}
+	
+	public void drawGrass(float x, float y, float w, float h, int amount){
+		Random randomGenerator = new Random();
+		
+		float gap = w / amount;
+		x = x - (w/2);
+		canvas.saveState();
+		for (int i = 0; i < amount;i ++){
+			float randX = randomGenerator.nextFloat()*4;
+			float randH = randomGenerator.nextFloat()*5;
+			canvas.moveTo(x, height - y);
+			canvas.curveTo(x, height - y, x,height - (y-(h/2)), x+randX, height - (y-(h+randH)));
+			canvas.stroke();
+			
+			x = x + gap;
+		}
+		canvas.restoreState();	
+	}
+
 	public void drawTriangle(float x, float y, float dims){
 		
 		canvas.saveState();
@@ -307,6 +360,22 @@ public class PDFCanvas {
 		
 		canvas.restoreState();	
 	}
+	
+public void fillTriangle(float x, float y, float dims){
+		
+		canvas.saveState();
+		canvas.moveTo(x-(dims/2), height - y);
+		canvas.lineTo(x, (height+Math.abs(dims))-y);
+		canvas.lineTo(x+(dims/2), height - y);
+		//canvas.lineTo(x-(dims/2), height - y);
+		
+		canvas.fill();
+		//canvas.stroke();
+		
+		canvas.restoreState();	
+	}
+
+
 	
 public void drawWave(float x, float y, float dims){
 		
