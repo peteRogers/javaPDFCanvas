@@ -392,8 +392,37 @@ public void drawWave(float x, float y, float dims){
 		
 		canvas.restoreState();	
 	}
+public void drawCurve(float x1, float y1, float x2, float y2){
 	
 	
+	
+	
+	
+	
+	
+	canvas.curveTo(x1, (height - y1),x2, (height-y2));
+	
+	
+	//canvas.stroke();
+		
+	
+	
+}
+
+public void initCurve(float x, float y){
+	canvas.saveState();
+	canvas.moveTo(x, height - y);
+}
+
+
+public void endCurve(){
+	canvas.stroke();
+	canvas.restoreState();
+}
+
+	public void setRoundEnd(){
+		canvas.setLineJoin(1);
+	}
 	
 	
 	public void drawCircle(float x, float y, float  diameter){
