@@ -415,10 +415,25 @@ public void initCurve(float x, float y){
 }
 
 
-public void endCurve(){
-	canvas.stroke();
+public void endFillStrokeCurve(){
+	canvas.fillStroke();
+	
 	canvas.restoreState();
 }
+
+public void endFillCurve(){
+	canvas.fill();
+	
+	canvas.restoreState();
+}
+
+public void endStrokeCurve(){
+	canvas.stroke();
+	
+	canvas.restoreState();
+}
+
+
 
 	public void setRoundEnd(){
 		canvas.setLineJoin(1);

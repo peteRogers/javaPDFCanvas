@@ -30,7 +30,7 @@ private void setup(){
 	canvas.setFillTransparency(0.9f);
 	//canvas.drawTriangle(100, 100, 200);
 	//canvas.setFont("myFonts/RaspoutineClassic_TB.otf100", 10);
-	SplineFactory spline = new SplineFactory();
+//	SplineFactory spline = new SplineFactory();
 	canvas.setRoundEnd();
 	int pointN = 500;
 	double[] c = new double[pointN*3];
